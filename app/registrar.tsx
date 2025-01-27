@@ -1,7 +1,8 @@
-import { Text, View, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import MyButton from "@/components/MyButton";
 import MyCampo from "@/components/MyCampo";
 import TextLink from "@/components/TextLink";
+import { Link } from "expo-router";
 
 export default function Index() {
   return (
@@ -30,7 +31,9 @@ export default function Index() {
           isPassword={true}
         />
       </View>
-      <MyButton text={"Cadastrar"} onPress={() => {}} />
+      <Link dismissTo href="/" asChild>
+        <MyButton text={"Cadastrar"} onPress={() => {}} />
+      </Link>
       <View>
         <TextLink text={"Possuo cadastro"} onPress={() => {}} />
       </View>
@@ -45,13 +48,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 16,
     paddingVertical: 32,
-    gap: 24,
+    gap: 4,
     backgroundColor: "#FFFFFF",
   },
   formContainer: {
     width: "100%",
     marginBottom: 0, // Ajusta a distância entre os campos e o botão
-    paddingHorizontal: 16,
-    gap: 16, // Espaçamento consistente entre os campos
+    gap: 4, // Espaçamento consistente entre os campos
   },
 });

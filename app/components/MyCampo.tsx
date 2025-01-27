@@ -73,7 +73,6 @@ const styles = StyleSheet.create({
   },
   campo: {
     width: "100%",
-    paddingVertical: 8,
     marginVertical: 12,
   },
 });

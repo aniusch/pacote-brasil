@@ -42,13 +42,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 16,
     paddingVertical: 32,
-    gap: 24,
+    gap: 4,
     backgroundColor: "#FFFFFF",
   },
   formContainer: {
     width: "100%",
     marginBottom: 0, // Ajusta a distância entre os campos e o botão
-    paddingHorizontal: 16,
-    gap: 16, // Espaçamento consistente entre os campos
+    gap: 4, // Espaçamento consistente entre os campos
   },
 });
