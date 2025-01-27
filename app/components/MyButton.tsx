@@ -23,8 +23,8 @@ const { width } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   button: {
-    width: width * 0.4, // Adaptação à largura da tela
-    height: 40, // Altura razoável para toque
+    width: width * 0.6, // Adaptação à largura da tela
+    height: 48, // Altura razoável para toque
     padding: 8,
     borderRadius: 20,
     backgroundColor: "#0D3439",
@@ -33,8 +33,9 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "white",
-    fontSize: 16, // Maior legibilidade
+    fontSize: 18, // Maior legibilidade
     textAlign: "center",
+    fontWeight: "700",
   },
 });
 

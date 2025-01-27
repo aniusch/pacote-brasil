@@ -1,5 +1,4 @@
-import { View, StyleSheet } from "react-native";
-import { Link } from "expo-router";
+import { Text, View, StyleSheet } from "react-native";
 import MyButton from "@/components/MyButton";
 import MyCampo from "@/components/MyCampo";
 import TextLink from "@/components/TextLink";
@@ -9,27 +8,31 @@ export default function Index() {
     <View style={styles.container}>
       <View style={styles.formContainer}>
         <MyCampo
-          title={"Email"}
+          title={"Nome Completo"}
           onPress={() => {}}
-          placeholder={"Insira o email aqui"}
+          placeholder={"Insira o seu nome completo aqui"}
         />
         <MyCampo
-          title={"Senha"}
+          title={"Email"}
+          onPress={() => {}}
+          placeholder={"Insira o seu email aqui"}
+        />
+        <MyCampo
+          title={"Criar senha"}
+          onPress={() => {}}
+          placeholder={"Insira a senha aqui"}
+          isPassword={true}
+        />
+        <MyCampo
+          title={"Confirmar senha"}
           onPress={() => {}}
           placeholder={"Insira a senha aqui"}
           isPassword={true}
         />
       </View>
-      <Link href="/registrar" asChild>
-        <MyButton text={"Entrar"} onPress={() => {}} />
-      </Link>
-      <View
-        style={{
-          gap: 8,
-        }}
-      >
-        <TextLink text={"Esqueci a senha"} onPress={() => {}} />
-        <TextLink text={"Primeiro acesso"} onPress={() => {}} />
+      <MyButton text={"Cadastrar"} onPress={() => {}} />
+      <View>
+        <TextLink text={"Possuo cadastro"} onPress={() => {}} />
       </View>
     </View>
   );
