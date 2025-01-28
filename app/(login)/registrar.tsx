@@ -4,7 +4,7 @@ import MyCampo from "@/components/MyCampo";
 import TextLink from "@/components/TextLink";
 import { Link } from "expo-router";
 
-export default function Index() {
+export default function Registrar() {
   return (
     <View style={styles.container}>
       <View style={styles.formContainer}>

@@ -26,8 +26,10 @@ export default function Index() {
           gap: 8,
         }}
       >
-        <TextLink text={"Esqueci a senha"} onPress={() => {}} />
-        <Link href="/registrar" asChild>
+        <Link href={"/(login)/recuperar"} asChild>
+          <TextLink text={"Esqueci a senha"} onPress={() => {}} />
+        </Link>
+        <Link href="/(login)/registrar" asChild>
           <TextLink text={"Primeiro acesso"} onPress={() => {}} />
         </Link>
       </View>
