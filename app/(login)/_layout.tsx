@@ -2,7 +2,7 @@ import React from "react";
 import { View, Image, StyleSheet } from "react-native";
 import { Stack } from "expo-router";
 
-export default function HomeLayout() {
+export default function LoginLayout() {
   return (
     <View style={{ flex: 1, backgroundColor: "#D7961D" }}>
       <View style={styles.container}>
@@ -11,7 +11,9 @@ export default function HomeLayout() {
         {/* Conteúdo da página */}
       </View>
       <View style={styles.contentContainer}>
-        <Stack screenOptions={{ headerShown: false }}></Stack>
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        </Stack>
       </View>
     </View>
   );

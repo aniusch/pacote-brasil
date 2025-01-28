@@ -20,7 +20,9 @@ export default function Index() {
           isPassword={true}
         />
       </View>
-      <MyButton text={"Entrar"} onPress={() => {}} />
+      <Link href={"/trilhas"} asChild>
+        <MyButton text={"Entrar"} onPress={() => {}} />
+      </Link>
       <View
         style={{
           gap: 8,
