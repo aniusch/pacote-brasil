@@ -35,7 +35,9 @@ export default function Index() {
         <MyButton text={"Cadastrar"} onPress={() => {}} />
       </Link>
       <View>
-        <TextLink text={"Possuo cadastro"} onPress={() => {}} />
+        <Link dismissTo href="/" asChild>
+          <TextLink text={"Possuo cadastro"} onPress={() => {}} />
+        </Link>
       </View>
     </View>
   );

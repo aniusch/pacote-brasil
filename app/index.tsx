@@ -20,16 +20,16 @@ export default function Index() {
           isPassword={true}
         />
       </View>
-      <Link href="/registrar" asChild>
-        <MyButton text={"Entrar"} onPress={() => {}} />
-      </Link>
+      <MyButton text={"Entrar"} onPress={() => {}} />
       <View
         style={{
           gap: 8,
         }}
       >
         <TextLink text={"Esqueci a senha"} onPress={() => {}} />
-        <TextLink text={"Primeiro acesso"} onPress={() => {}} />
+        <Link href="/registrar" asChild>
+          <TextLink text={"Primeiro acesso"} onPress={() => {}} />
+        </Link>
       </View>
     </View>
   );
