@@ -35,11 +35,11 @@ export default function Ajuda() {
               </Text>
             </View>
           </View>
-          <View style={GStyles.linksContainer}>
-            <Link href={".."}>
-              <Text style={GStyles.links}>Voltar</Text>
-            </Link>
-          </View>
+        </View>
+        <View style={GStyles.linksContainer}>
+          <Link href={".."}>
+            <Text style={GStyles.links}>Voltar</Text>
+          </Link>
         </View>
       </View>
     </View>

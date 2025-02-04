@@ -34,10 +34,6 @@ const Layout = () => {
         options={{ title: "Pacotes" }}
       />
       <MaterialTopTabs.Screen
-        name="(home)/pagamento"
-        options={{ title: "Pagamento" }}
-      />
-      <MaterialTopTabs.Screen
         name="(home)/ajuda"
         options={{ title: "Ajuda" }}
       />
