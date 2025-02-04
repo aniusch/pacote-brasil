@@ -11,9 +11,9 @@ export default function LoginLayout() {
         {/* Conteúdo da página */}
       </View>
       <View style={styles.contentContainer}>
-        <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        </Stack>
+        <Stack
+          screenOptions={{ headerShown: false, headerShadowVisible: false }}
+        ></Stack>
       </View>
     </View>
   );
