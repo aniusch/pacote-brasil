@@ -1,17 +1,47 @@
-import { Tabs } from "expo-router";
+import {
+  createMaterialTopTabNavigator,
+  MaterialTopTabNavigationOptions,
+  MaterialTopTabNavigationEventMap,
+} from "@react-navigation/material-top-tabs";
+import { ParamListBase, TabNavigationState } from "@react-navigation/native";
+import { withLayoutContext } from "expo-router";
 
-export default function TabLayout() {
+const { Navigator } = createMaterialTopTabNavigator();
+
+export const MaterialTopTabs = withLayoutContext<
+  MaterialTopTabNavigationOptions,
+  typeof Navigator,
+  TabNavigationState<ParamListBase>,
+  MaterialTopTabNavigationEventMap
+>(Navigator);
+
+const Layout = () => {
   return (
-    <Tabs
+    <MaterialTopTabs
       screenOptions={{
-        tabBarActiveTintColor: "#D7961D",
-        headerShadowVisible: false,
+        tabBarStyle: { backgroundColor: "#D7961D" },
+        tabBarActiveTintColor: "#fff",
+        tabBarIndicatorStyle: { backgroundColor: "#fff", height: 3 },
+        tabBarLabelStyle: { fontSize: 16, fontWeight: "bold" },
       }}
     >
-      <Tabs.Screen name="(home)/trilhas" />
-      <Tabs.Screen name="(home)/pacotes" />
-      <Tabs.Screen name="(home)/pagamento" />
-      <Tabs.Screen name="(home)/ajuda" />
-    </Tabs>
+      <MaterialTopTabs.Screen
+        name="(home)/trilhas"
+        options={{ title: "Trilhas" }}
+      />
+      <MaterialTopTabs.Screen
+        name="(home)/pacotes"
+        options={{ title: "Pacotes" }}
+      />
+      <MaterialTopTabs.Screen
+        name="(home)/pagamento"
+        options={{ title: "Pagamento" }}
+      />
+      <MaterialTopTabs.Screen
+        name="(home)/ajuda"
+        options={{ title: "Ajuda" }}
+      />
+    </MaterialTopTabs>
   );
-}
+};
+export default Layout;

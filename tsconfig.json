@@ -11,6 +11,9 @@
       ],
       "@/images/*": [
         "./assets/images/*"
+      ],
+      "@styles/*": [
+        "./styles/*"
       ]
     }
   },

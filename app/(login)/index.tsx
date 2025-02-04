@@ -20,7 +20,7 @@ export default function Index() {
           isPassword={true}
         />
       </View>
-      <Link href={"/(tabs)/trilhas"} asChild>
+      <Link href={"/(tabs)/(home)/trilhas"} asChild>
         <MyButton text={"Entrar"} onPress={() => {}} />
       </Link>
       <View
