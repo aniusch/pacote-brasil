@@ -3,7 +3,7 @@ import { GStyles } from "@/styles/global";
 import { Link } from "expo-router";
 import { useScrollToTop } from "@react-navigation/native";
 import React, { useRef } from "react";
-import CestaCard from "@/components/CestaCard";
+import ItemsList from "@/app/components/ItemsList";
 
 // Properly type the ref as ScrollView | null
 export default function Trilhas() {
@@ -27,7 +27,10 @@ export default function Trilhas() {
           Escolha uma das trilhas de experiência!
         </Text>
         <View style={GStyles.contentContainer}>
-          <CestaCard CestaID={1}></CestaCard>
+          {/* <ItemsList
+            colletionName="Cesta"
+            renderItem={(item) => <CestaCard key={item.id} CestaID={item.id} />}
+          /> */}
         </View>
         <View style={GStyles.linksContainer}>
           <TouchableOpacity

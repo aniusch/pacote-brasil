@@ -2,10 +2,9 @@ import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { GStyles } from "@/styles/global";
 import { Link } from "expo-router";
 import { useScrollToTop } from "@react-navigation/native";
-import React, { useRef, useEffect } from "react";
-import CestaCard from "@/components/CestaCard";
-import { FIREBASE_DB } from "@/firebaseConfig";
-import { collection, addDoc } from "firebase/firestore";
+import React, { useRef } from "react";
+import ItemsList from "@/components/ItemsList";
+import CestaCard from "@/app/components/CestaCard";
 
 // Properly type the ref as ScrollView | null
 export default function Pacotes() {
@@ -26,7 +25,10 @@ export default function Pacotes() {
           Conheça todas as delícias que preparamos para você!
         </Text>
         <View style={GStyles.contentContainer}>
-          <CestaCard CestaID={1}></CestaCard>
+          <ItemsList
+            colletionName="Cesta"
+            renderItem={(item) => <CestaCard key={item.id} CestaID={item.id} />}
+          />
         </View>
         <View style={GStyles.linksContainer}>
           <TouchableOpacity
