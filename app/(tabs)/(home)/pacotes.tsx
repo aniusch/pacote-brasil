@@ -2,7 +2,10 @@ import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { GStyles } from "@/styles/global";
 import { Link } from "expo-router";
 import { useScrollToTop } from "@react-navigation/native";
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
+import CestaCard from "@/components/CestaCard";
+import { FIREBASE_DB } from "@/firebaseConfig";
+import { collection, addDoc } from "firebase/firestore";
 
 // Properly type the ref as ScrollView | null
 export default function Pacotes() {
@@ -16,79 +19,14 @@ export default function Pacotes() {
       <View
         style={[
           GStyles.container,
-          { flex: 1, justifyContent: "space-between" },
+          { flex: 1, justifyContent: "space-between", padding: 0 },
         ]}
       >
         <Text style={GStyles.pageTitle}>
           Conheça todas as delícias que preparamos para você!
         </Text>
         <View style={GStyles.contentContainer}>
-          <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero,
-            exercitationem veritatis tempore harum a sapiente atque esse quae
-            facere autem expedita accusamus commodi dolorem iusto minus,
-            perspiciatis mollitia, illum temporibus.
-          </Text>
-          <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero,
-            exercitationem veritatis tempore harum a sapiente atque esse quae
-            facere autem expedita accusamus commodi dolorem iusto minus,
-            perspiciatis mollitia, illum temporibus.
-          </Text>
-          <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero,
-            exercitationem veritatis tempore harum a sapiente atque esse quae
-            facere autem expedita accusamus commodi dolorem iusto minus,
-            perspiciatis mollitia, illum temporibus.
-          </Text>
-          <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero,
-            exercitationem veritatis tempore harum a sapiente atque esse quae
-            facere autem expedita accusamus commodi dolorem iusto minus,
-            perspiciatis mollitia, illum temporibus.
-          </Text>
-          <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero,
-            exercitationem veritatis tempore harum a sapiente atque esse quae
-            facere autem expedita accusamus commodi dolorem iusto minus,
-            perspiciatis mollitia, illum temporibus.
-          </Text>
-          <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero,
-            exercitationem veritatis tempore harum a sapiente atque esse quae
-            facere autem expedita accusamus commodi dolorem iusto minus,
-            perspiciatis mollitia, illum temporibus.
-          </Text>
-          <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero,
-            exercitationem veritatis tempore harum a sapiente atque esse quae
-            facere autem expedita accusamus commodi dolorem iusto minus,
-            perspiciatis mollitia, illum temporibus.
-          </Text>
-          <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero,
-            exercitationem veritatis tempore harum a sapiente atque esse quae
-            facere autem expedita accusamus commodi dolorem iusto minus,
-            perspiciatis mollitia, illum temporibus.
-          </Text>
-          <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero,
-            exercitationem veritatis tempore harum a sapiente atque esse quae
-            facere autem expedita accusamus commodi dolorem iusto minus,
-            perspiciatis mollitia, illum temporibus.
-          </Text>
-          <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero,
-            exercitationem veritatis tempore harum a sapiente atque esse quae
-            facere autem expedita accusamus commodi dolorem iusto minus,
-            perspiciatis mollitia, illum temporibus.
-          </Text>
-          <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero,
-            exercitationem veritatis tempore harum a sapiente atque esse quae
-            facere autem expedita accusamus commodi dolorem iusto minus,
-            perspiciatis mollitia, illum temporibus.
-          </Text>
+          <CestaCard CestaID={1}></CestaCard>
         </View>
         <View style={GStyles.linksContainer}>
           <TouchableOpacity

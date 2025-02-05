@@ -1,41 +1,73 @@
-import { View, StyleSheet } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Pressable,
+  Keyboard,
+  SafeAreaView,
+} from "react-native";
 import { Link } from "expo-router";
 import MyButton from "@/components/MyButton";
 import MyCampo from "@/components/MyCampo";
 import TextLink from "@/components/TextLink";
+import { FIREBASE_DB } from "@/firebaseConfig";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import React, { useEffect, forwardRef } from "react";
 
 export default function Index() {
+  useEffect(() => {
+    queryCestas();
+  }, []);
+
+  const queryCestas = async () => {
+    const cestaRef = collection(FIREBASE_DB, "Cesta");
+    const q = query(cestaRef, where("id", "==", 1));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      console.log(doc.id, " => ", doc.data());
+    });
+  };
+
   return (
-    <View style={styles.container}>
-      <View style={styles.formContainer}>
-        <MyCampo
-          title={"Email"}
-          onPress={() => {}}
-          placeholder={"Insira o email aqui"}
-        />
-        <MyCampo
-          title={"Senha"}
-          onPress={() => {}}
-          placeholder={"Insira a senha aqui"}
-          isPassword={true}
-        />
-      </View>
-      <Link href={"/(tabs)/(home)/trilhas"} asChild>
-        <MyButton text={"Entrar"} onPress={() => {}} />
-      </Link>
-      <View
+    <Pressable style={styles.container} onPress={Keyboard.dismiss}>
+      <SafeAreaView
         style={{
-          gap: 8,
+          flex: 1,
+          justifyContent: "space-evenly",
+          alignItems: "center",
+          width: "100%",
         }}
       >
-        <Link href={"/(login)/recuperar"} asChild>
-          <TextLink text={"Esqueci a senha"} onPress={() => {}} />
+        <View style={styles.formContainer}>
+          <MyCampo
+            title={"Email"}
+            onPress={() => {}}
+            placeholder={"Insira o email aqui"}
+          />
+          <MyCampo
+            title={"Senha"}
+            onPress={() => {}}
+            placeholder={"Insira a senha aqui"}
+            isPassword={true}
+          />
+        </View>
+        <Link href={"/(tabs)/(home)/trilhas"} asChild>
+          <MyButton text={"Entrar"} onPress={() => {}} />
         </Link>
-        <Link href="/(login)/registrar" asChild>
-          <TextLink text={"Primeiro acesso"} onPress={() => {}} />
-        </Link>
-      </View>
-    </View>
+        <View
+          style={{
+            gap: 8,
+          }}
+        >
+          <Link href={"/(login)/recuperar"} asChild>
+            <TextLink text={"Esqueci a senha"} onPress={() => {}} />
+          </Link>
+          <Link href="/(login)/registrar" asChild>
+            <TextLink text={"Primeiro acesso"} onPress={() => {}} />
+          </Link>
+        </View>
+      </SafeAreaView>
+    </Pressable>
   );
 }
 
