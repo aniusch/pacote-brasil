@@ -27,7 +27,7 @@ export default function Pacotes() {
         <View style={GStyles.contentContainer}>
           <ItemsList
             colletionName="Cesta"
-            renderItem={(item) => <CestaCard key={item.id} CestaID={item.id} />}
+            renderItem={(item) => <CestaCard key={item.id} Cesta={item} />}
           />
         </View>
         <View style={GStyles.linksContainer}>

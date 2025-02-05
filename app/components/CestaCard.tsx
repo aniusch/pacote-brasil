@@ -12,26 +12,26 @@ import { doc, getDoc } from "firebase/firestore";
 import { Link } from "expo-router";
 
 type CestaCardProps = {
-  CestaID: number;
+  Cesta: any;
 };
 
 type TCestaCard = {
-  id: number;
+  id: any;
   name: string;
 };
 
-const CestaCard: React.FC<CestaCardProps> = ({ CestaID }) => {
+const CestaCard: React.FC<CestaCardProps> = ({ Cesta }) => {
   const [cesta, setCesta] = useState<TCestaCard | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchCesta = async () => {
       try {
-        const docRef = doc(FIREBASE_DB, "Cesta", CestaID.toString());
+        const docRef = doc(FIREBASE_DB, "Cesta", Cesta.id.toString());
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
-          setCesta({ id: CestaID, name: docSnap.data().name });
+          setCesta({ id: Cesta.id, name: docSnap.data().name });
         } else {
           console.log("Nenhuma cesta encontrada com esse ID.");
         }
@@ -43,7 +43,7 @@ const CestaCard: React.FC<CestaCardProps> = ({ CestaID }) => {
     };
 
     fetchCesta();
-  }, [CestaID]);
+  }, [Cesta]);
 
   return (
     <View style={styles.container}>
@@ -57,7 +57,7 @@ const CestaCard: React.FC<CestaCardProps> = ({ CestaID }) => {
           <Link
             href={{
               pathname: "/produtos/cesta/[id]",
-              params: { id: CestaID, title: cesta!.name },
+              params: { id: Cesta.id, title: Cesta.name },
             }}
             asChild
           >
