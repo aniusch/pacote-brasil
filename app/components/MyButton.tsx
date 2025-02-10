@@ -6,13 +6,14 @@ type MyButtonProps = {
   onPress: () => void;
 };
 
-const MyButton: React.FC<MyButtonProps> = ({ text, onPress }) => {
+const MyButton: React.FC<MyButtonProps> = ({ text, onPress }, ref) => {
   return (
     <TouchableOpacity
       style={styles.button}
       onPress={onPress}
       accessibilityLabel={`Button: ${text}`}
       activeOpacity={0.7}
+      ref={ref}
     >
       <Text style={styles.buttonText}>{text}</Text>
     </TouchableOpacity>

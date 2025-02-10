@@ -4,6 +4,7 @@ import { Link } from "expo-router";
 import { useScrollToTop } from "@react-navigation/native";
 import React, { useRef } from "react";
 import ItemsList from "@/app/components/ItemsList";
+import TrilhaCard from "@/app/components/TrilhaCard";
 
 // Properly type the ref as ScrollView | null
 export default function Trilhas() {
@@ -27,10 +28,10 @@ export default function Trilhas() {
           Escolha uma das trilhas de experiência!
         </Text>
         <View style={GStyles.contentContainer}>
-          {/* <ItemsList
-            colletionName="Cesta"
-            renderItem={(item) => <CestaCard key={item.id} CestaID={item.id} />}
-          /> */}
+          <ItemsList
+            colletionName="Trilha"
+            renderItem={(item) => <TrilhaCard key={item.id} Trilha={item} />}
+          />
         </View>
         <View style={GStyles.linksContainer}>
           <TouchableOpacity

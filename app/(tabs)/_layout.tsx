@@ -18,11 +18,14 @@ export const MaterialTopTabs = withLayoutContext<
 const Layout = () => {
   return (
     <MaterialTopTabs
+      options={{}}
       screenOptions={{
         tabBarStyle: { backgroundColor: "#D7961D" },
         tabBarActiveTintColor: "#fff",
         tabBarIndicatorStyle: { backgroundColor: "#fff", height: 3 },
         tabBarLabelStyle: { fontSize: 16, fontWeight: "bold" },
+        tabBarScrollEnabled: false,
+        swipeEnabled: false,
       }}
     >
       <MaterialTopTabs.Screen
@@ -40,4 +43,5 @@ const Layout = () => {
     </MaterialTopTabs>
   );
 };
+
 export default Layout;

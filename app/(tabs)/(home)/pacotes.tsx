@@ -1,14 +1,15 @@
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { GStyles } from "@/styles/global";
-import { Link } from "expo-router";
 import { useScrollToTop } from "@react-navigation/native";
 import React, { useRef } from "react";
 import ItemsList from "@/components/ItemsList";
 import CestaCard from "@/app/components/CestaCard";
+import { Link, useLocalSearchParams } from "expo-router";
 
 // Properly type the ref as ScrollView | null
 export default function Pacotes() {
   const scrollViewRef = useRef<ScrollView | null>(null);
+  const { nums } = useLocalSearchParams();
 
   // Activate the scroll-to-top functionality with the ref
   useScrollToTop(scrollViewRef);
@@ -27,6 +28,7 @@ export default function Pacotes() {
         <View style={GStyles.contentContainer}>
           <ItemsList
             colletionName="Cesta"
+            itemsNum={Number(nums)}
             renderItem={(item) => <CestaCard key={item.id} Cesta={item} />}
           />
         </View>

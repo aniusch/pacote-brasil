@@ -6,9 +6,14 @@ import { FIREBASE_DB } from "@/firebaseConfig";
 type ItemsListProps = {
   colletionName: string;
   renderItem: (item: any) => JSX.Element; // Expect a function that returns JSX
+  itemsNum?: number;
 };
 
-const ItemsList: React.FC<ItemsListProps> = ({ colletionName, renderItem }) => {
+const ItemsList: React.FC<ItemsListProps> = ({
+  colletionName,
+  renderItem,
+  itemsNum,
+}) => {
   const [items, setItems] = useState<any[]>([]);
 
   useEffect(() => {
@@ -17,18 +22,32 @@ const ItemsList: React.FC<ItemsListProps> = ({ colletionName, renderItem }) => {
     const subscriber = onSnapshot(itemsRef, {
       next: (snapshot) => {
         const items: any[] = [];
-        snapshot.docs.forEach((doc) => {
-          items.push({
-            id: doc.id,
-            ...doc.data(),
+
+        if (itemsNum) {
+          for (let index = 0; index < itemsNum; index++) {
+            const element = snapshot.docs.at(index);
+            if (element) {
+              items.push({
+                id: element.id,
+                ...element.data(),
+              });
+            }
+          }
+        } else {
+          snapshot.docs.forEach((doc) => {
+            items.push({
+              id: doc.id,
+              ...doc.data(),
+            });
           });
-        });
+        }
+
         setItems(items);
       },
     });
 
     return () => subscriber();
-  }, [colletionName]);
+  }, [colletionName, itemsNum]); // ✅ Include `itemsNum` as a dependency
 
   return (
     <View style={styles.itemsContainer}>

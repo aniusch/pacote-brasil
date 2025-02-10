@@ -17,12 +17,6 @@ export default function ProdutosLayout() {
           title: title ? String(title) : "Voltar",
         }}
       />
-      <Stack.Screen
-        name="trilha/[id]"
-        options={{
-          title: title ? String(title) : "Voltar",
-        }}
-      />
     </Stack>
   );
 }
