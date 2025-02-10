@@ -1,7 +1,7 @@
 import { Stack, useLocalSearchParams } from "expo-router";
 
 export default function ProdutosLayout() {
-  const { title } = useLocalSearchParams(); // Extract title
+  const { title } = useLocalSearchParams();
 
   return (
     <Stack

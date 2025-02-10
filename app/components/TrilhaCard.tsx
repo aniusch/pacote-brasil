@@ -68,13 +68,18 @@ const TrilhaCard: React.FC<TrilhaCardProps> = ({ Trilha }) => {
         >
           <TouchableOpacity style={styles.container}>
             <Image style={styles.image} source={img} />
-            <Text style={styles.title} numberOfLines={1}>
-              {trilha
-                ? Number(trilha.duration) > 1
-                  ? `${trilha.name} - ${trilha.duration} meses`
-                  : `${trilha.name} - ${trilha.duration} mês`
-                : "Trilha não encontrada"}
-            </Text>
+            <View style={styles.titleContainer}>
+              <Text style={styles.title} numberOfLines={1}>
+                {trilha
+                  ? Number(trilha.duration) > 1
+                    ? `${trilha.name} - ${trilha.duration} meses`
+                    : `${trilha.name} - ${trilha.duration} mês`
+                  : "Trilha não encontrada"}
+              </Text>
+              <Text style={styles.cost}>
+                {trilha ? "R$" + trilha.cost_month : "R$00,00"}
+              </Text>
+            </View>
             <Text style={styles.description}>
               {trilha?.description || "Sem descrição disponível"}
             </Text>
@@ -104,23 +109,32 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     overflow: "hidden",
   },
+  titleContainer: {
+    flex: 1,
+    flexDirection: "row",
+    marginTop: 10,
+    marginHorizontal: 6,
+  },
   title: {
     flex: 1,
     fontSize: 18,
     fontWeight: "bold",
     color: "#333",
-    marginTop: 10,
-    marginHorizontal: 6,
+  },
+  cost: {
+    fontSize: 16,
+    color: "#2e9000",
+    textAlign: "right",
+    textAlignVertical: "bottom",
   },
   description: {
     marginHorizontal: 6,
-    fontFamily: "Roboto-Regular",
     color: "rgba(0, 0, 0, 0.5)",
     textAlign: "left",
   },
   image: {
     width: "100%",
-    height: 100,
+    height: 120,
   },
 });
 

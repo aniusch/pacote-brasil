@@ -24,7 +24,6 @@ const Layout = () => {
         tabBarActiveTintColor: "#fff",
         tabBarIndicatorStyle: { backgroundColor: "#fff", height: 3 },
         tabBarLabelStyle: { fontSize: 16, fontWeight: "bold" },
-        tabBarScrollEnabled: false,
         swipeEnabled: false,
       }}
     >

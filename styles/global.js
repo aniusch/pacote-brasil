@@ -38,7 +38,6 @@ export const GStyles = StyleSheet.create({
     width: 269,
   },
   linksContainer: {
-    flex: 1,
     justifyContent: "flex-end",
     paddingBottom: 24,
     gap: 16,

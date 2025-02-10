@@ -8,16 +8,24 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { FIREBASE_DB } from "@/firebaseConfig";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, collection, getDocs } from "firebase/firestore";
 import { Link } from "expo-router";
 
 type CestaCardProps = {
   Cesta: any;
 };
 
+type TItem = {
+  id: any;
+  description: string;
+};
+
 type TCestaCard = {
   id: any;
-  name: string;
+  name?: string;
+  picture_url?: string;
+  recipe?: string;
+  items?: TItem[];
 };
 
 const CestaCard: React.FC<CestaCardProps> = ({ Cesta }) => {
@@ -31,7 +39,19 @@ const CestaCard: React.FC<CestaCardProps> = ({ Cesta }) => {
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
-          setCesta({ id: Cesta.id, name: docSnap.data().name });
+          const itemsCollection = collection(docRef, "items");
+          const itemsSnapshot = await getDocs(itemsCollection);
+
+          const itemsList: TItem[] = itemsSnapshot.docs.map((doc) => {
+            const data = doc.data();
+            return {
+              id: doc.id,
+              description: data.description,
+            };
+          });
+
+          const thisDoc = { id: Cesta.id, ...docSnap.data(), items: itemsList };
+          setCesta(thisDoc);
         } else {
           console.log("Nenhuma cesta encontrada com esse ID.");
         }
@@ -57,7 +77,11 @@ const CestaCard: React.FC<CestaCardProps> = ({ Cesta }) => {
           <Link
             href={{
               pathname: "/produtos/cesta/[id]",
-              params: { id: Cesta.id, title: Cesta.name },
+              params: {
+                id: Cesta.id,
+                title: Cesta.name,
+                cestaData: JSON.stringify(cesta),
+              },
             }}
             asChild
           >
@@ -89,7 +113,7 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   title: {
-    flex: 1, // Ocupa o espaço disponível e empurra o botão para a direita
+    flex: 1,
     fontSize: 18,
     fontWeight: "bold",
     color: "#333",
