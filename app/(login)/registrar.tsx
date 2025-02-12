@@ -31,9 +31,11 @@ export default function Registrar() {
           isPassword={true}
         />
       </View>
-      <Link dismissTo href="/" asChild>
-        <MyButton text={"Cadastrar"} onPress={() => {}} />
-      </Link>
+      <View>
+        <Link dismissTo href="/" asChild>
+          <MyButton text={"Cadastrar"} onPress={() => {}} />
+        </Link>
+      </View>
       <View>
         <Link dismissTo href="/" asChild>
           <TextLink text={"Possuo cadastro"} onPress={() => {}} />

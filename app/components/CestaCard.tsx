@@ -15,12 +15,12 @@ type CestaCardProps = {
   Cesta: any;
 };
 
-type TItem = {
+export type TItem = {
   id: any;
   description: string;
 };
 
-type TCestaCard = {
+export type TCestaCard = {
   id: any;
   name?: string;
   picture_url?: string;

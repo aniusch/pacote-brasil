@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "213711706215",
+    "firebase_url": "https://pacote-brasil-default-rtdb.firebaseio.com",
+    "project_id": "pacote-brasil",
+    "storage_bucket": "pacote-brasil.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:213711706215:android:0dc69d6bf4c64c98805cc2",
+        "android_client_info": {
+          "package_name": "com.pacote.brasil"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "213711706215-iuttan2ajfcqlui436e4ead2uom0v1qq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeNZp8b-4sn0DRRzL8hIpCSnR05DqYQHU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "213711706215-iuttan2ajfcqlui436e4ead2uom0v1qq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "213711706215-1vg0i7g5t2h12bbm59jois8iausibkb5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.pacotebrasil01.main"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

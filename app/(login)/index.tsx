@@ -11,9 +11,13 @@ import MyCampo from "@/components/MyCampo";
 import TextLink from "@/components/TextLink";
 import { FIREBASE_DB } from "@/firebaseConfig";
 import { collection, query, where, getDocs } from "firebase/firestore";
-import React, { useEffect, forwardRef } from "react";
+import React, { useEffect, forwardRef, useState } from "react";
 
 export default function Index() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loaging, setLoaging] = useState(false);
+
   useEffect(() => {
     queryCestas();
   }, []);
