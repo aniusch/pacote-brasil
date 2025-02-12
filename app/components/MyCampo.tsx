@@ -1,41 +1,33 @@
-import { useState } from "react";
 import * as React from "react";
-import {
-  Text,
-  StyleSheet,
-  View,
-  TextInput,
-  TouchableOpacity,
-} from "react-native";
+import { Text, StyleSheet, View, TextInput } from "react-native";
 
 type CampoProps = {
   title: string;
   placeholder: string;
-  onPress: () => void;
-  isPassword?: boolean; // Nova prop para indicar se é um campo de senha
+  value: string; // Add value prop to control the input text
+  onChangeText: (text: string) => void; // Add onChangeText prop to handle text changes
+  isPassword?: boolean; // Prop to indicate if it's a password field
 };
 
 const MyCampo: React.FC<CampoProps> = ({
   title,
   placeholder,
-  onPress,
+  value,
+  onChangeText,
   isPassword = false,
 }) => {
-  const [text, setText] = useState(""); // Estado para armazenar o valor digitado
-
   return (
     <View style={styles.campo}>
       <Text style={[styles.title, styles.titleTypo]}>{title}</Text>
       <View style={styles.placeholderTextParent}>
         <TextInput
           style={styles.placeholderText}
-          value={text}
-          onChangeText={setText} // Atualiza o estado com o texto digitado
+          value={value}
+          onChangeText={onChangeText}
           placeholder={placeholder}
-          placeholderTextColor="#555" // Cor do texto do placeholder
-          secureTextEntry={isPassword} // Mascarar texto se for senha
+          placeholderTextColor="#555"
+          secureTextEntry={isPassword}
         />
-        <TouchableOpacity style={styles.frameChild} onPress={onPress} />
       </View>
     </View>
   );
@@ -50,16 +42,16 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: "700",
     fontFamily: "Inter-Bold",
-    marginBottom: 4, // Espaço entre o título e o placeholder
+    marginBottom: 4,
   },
   placeholderText: {
     fontFamily: "Inter-Regular",
     fontSize: 15,
-    color: "#000", // Cor do texto digitado
+    color: "#000",
     borderBottomWidth: 1,
-    borderColor: "#000", // Linha abaixo do campo de texto
+    borderColor: "#000",
     paddingVertical: 4,
-    width: "100%", // Ocupa toda a largura disponível
+    width: "100%",
   },
   frameChild: {
     borderStyle: "solid",

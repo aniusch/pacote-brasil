@@ -3,8 +3,10 @@ import MyButton from "@/components/MyButton";
 import MyCampo from "@/components/MyCampo";
 import TextLink from "@/components/TextLink";
 import { Link } from "expo-router";
+import { useState } from "react";
 
 export default function Recuperar() {
+  const [email, setEmail] = useState("");
   return (
     <View style={styles.container}>
       <View style={{ gap: 16 }}>
@@ -18,8 +20,9 @@ export default function Recuperar() {
       <View style={styles.formContainer}>
         <MyCampo
           title={"Email"}
-          onPress={() => {}}
           placeholder={"Insira o seu email aqui"}
+          onChangeText={() => {}}
+          value=""
         />
       </View>
       <Link dismissTo href="/" asChild>

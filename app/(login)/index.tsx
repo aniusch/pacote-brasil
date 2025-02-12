@@ -4,32 +4,31 @@ import {
   Pressable,
   Keyboard,
   SafeAreaView,
+  ActivityIndicator,
 } from "react-native";
 import { Link } from "expo-router";
 import MyButton from "@/components/MyButton";
 import MyCampo from "@/components/MyCampo";
 import TextLink from "@/components/TextLink";
-import { FIREBASE_DB } from "@/firebaseConfig";
-import { collection, query, where, getDocs } from "firebase/firestore";
-import React, { useEffect, forwardRef, useState } from "react";
+import React, { useState } from "react";
+import auth from "@react-native-firebase/auth";
+import { FirebaseError } from "firebase/app";
 
 export default function Index() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loaging, setLoaging] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    queryCestas();
-  }, []);
-
-  const queryCestas = async () => {
-    const cestaRef = collection(FIREBASE_DB, "Cesta");
-    const q = query(cestaRef, where("id", "==", 1));
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      console.log(doc.id, " => ", doc.data());
-    });
+  const signIn = async () => {
+    setLoading(true);
+    try {
+      await auth().signInWithEmailAndPassword(email, password);
+    } catch (e: any) {
+      const err = e as FirebaseError;
+      alert("Login falhou" + err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -45,12 +44,14 @@ export default function Index() {
         <View style={styles.formContainer}>
           <MyCampo
             title={"Email"}
-            onPress={() => {}}
+            value={email}
+            onChangeText={setEmail}
             placeholder={"Insira o email aqui"}
           />
           <MyCampo
             title={"Senha"}
-            onPress={() => {}}
+            value={password}
+            onChangeText={setPassword}
             placeholder={"Insira a senha aqui"}
             isPassword={true}
           />
@@ -63,12 +64,18 @@ export default function Index() {
             gap: 8,
           }}
         >
-          <Link href={"/(login)/recuperar"} asChild>
-            <TextLink text={"Esqueci a senha"} onPress={() => {}} />
-          </Link>
-          <Link href="/(login)/registrar" asChild>
-            <TextLink text={"Primeiro acesso"} onPress={() => {}} />
-          </Link>
+          {loading ? (
+            <ActivityIndicator size={"small"} style={{ margin: 28 }} />
+          ) : (
+            <>
+              <Link href={"/(login)/recuperar"} asChild>
+                <TextLink text={"Esqueci a senha"} onPress={() => {}} />
+              </Link>
+              <Link href="/(login)/registrar" asChild>
+                <TextLink text={"Primeiro acesso"} onPress={() => {}} />
+              </Link>
+            </>
+          )}
         </View>
       </SafeAreaView>
     </Pressable>
@@ -87,7 +94,7 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     width: "100%",
-    marginBottom: 0, // Ajusta a distância entre os campos e o botão
-    gap: 4, // Espaçamento consistente entre os campos
+    marginBottom: 0,
+    gap: 4,
   },
 });
