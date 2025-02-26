@@ -41,9 +41,6 @@ export default function Trilhas() {
           >
             <Text style={GStyles.links}>Voltar ao Topo</Text>
           </TouchableOpacity>
-          <Link href={".."}>
-            <Text style={GStyles.links}>Voltar</Text>
-          </Link>
         </View>
       </View>
     </ScrollView>

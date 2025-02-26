@@ -4,12 +4,14 @@ import { useScrollToTop } from "@react-navigation/native";
 import React, { useRef } from "react";
 import ItemsList from "@/components/ItemsList";
 import CestaCard from "@/app/components/CestaCard";
-import { Link, useLocalSearchParams } from "expo-router";
+import { Link, useLocalSearchParams, useRouter } from "expo-router";
+import MyButton from "@/app/components/MyButton";
 
 // Properly type the ref as ScrollView | null
 export default function Pacotes() {
   const scrollViewRef = useRef<ScrollView | null>(null);
   const { nums } = useLocalSearchParams();
+  const router = useRouter();
 
   // Activate the scroll-to-top functionality with the ref
   useScrollToTop(scrollViewRef);
@@ -33,6 +35,12 @@ export default function Pacotes() {
           />
         </View>
         <View style={GStyles.linksContainer}>
+          <MyButton
+            text="Fechar Pedido"
+            onPress={() => {
+              router.push("/(tabs)/(home)/pagamento");
+            }}
+          />
           <TouchableOpacity
             onPress={() =>
               scrollViewRef.current?.scrollTo({ y: 0, animated: true })

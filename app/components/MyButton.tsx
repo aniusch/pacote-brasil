@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
 
 type MyButtonProps = {
   text: string;
-  onPress: () => void;
+  onPress?: () => void;
 };
 
 const MyButton: React.FC<MyButtonProps> = ({ text, onPress }, ref) => {

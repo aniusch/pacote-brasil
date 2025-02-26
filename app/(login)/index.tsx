@@ -6,26 +6,71 @@ import {
   SafeAreaView,
   ActivityIndicator,
 } from "react-native";
-import { Link } from "expo-router";
+import { Link, Redirect } from "expo-router";
 import MyButton from "@/components/MyButton";
 import MyCampo from "@/components/MyCampo";
 import TextLink from "@/components/TextLink";
 import React, { useState } from "react";
-import auth from "@react-native-firebase/auth";
 import { FirebaseError } from "firebase/app";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+} from "@react-native-firebase/auth";
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+  isErrorWithCode,
+  isSuccessResponse,
+  statusCodes,
+  User,
+} from "@react-native-google-signin/google-signin";
+
+GoogleSignin.configure();
+
+const trava: boolean = false;
 
 export default function Index() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [User, setUser] = useState<User>();
+
+  const googleSignIn = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const response = await GoogleSignin.signIn();
+      if (isSuccessResponse(response)) {
+        setUser(response.data);
+      } else {
+        // sign in was cancelled by user
+      }
+    } catch (error) {
+      if (isErrorWithCode(error)) {
+        switch (error.code) {
+          case statusCodes.IN_PROGRESS:
+            // operation (eg. sign in) already in progress
+            break;
+          case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
+            // Android only, play services not available or outdated
+            break;
+          default:
+          // some other error happened
+        }
+      } else {
+        // an error that's not related to google sign in occurred
+      }
+    }
+  };
 
   const signIn = async () => {
     setLoading(true);
     try {
-      await auth().signInWithEmailAndPassword(email, password);
+      const auth = getAuth(); // Initialize the auth instance using the modular SDK
+      await signInWithEmailAndPassword(auth, email, password); // Use the modular API to sign in
+      alert("Login bem-sucedido " + auth.currentUser?.email);
     } catch (e: any) {
       const err = e as FirebaseError;
-      alert("Login falhou" + err.message);
+      alert("Login falhou: " + err.message); // Provide the error message if login fails
     } finally {
       setLoading(false);
     }
@@ -56,9 +101,28 @@ export default function Index() {
             isPassword={true}
           />
         </View>
-        <Link href={"/(tabs)/(home)/trilhas"} asChild>
-          <MyButton text={"Entrar"} onPress={() => {}} />
-        </Link>
+
+        {trava ? (
+          loading ? (
+            <ActivityIndicator size={"small"} style={{ margin: 28 }} />
+          ) : (
+            <>
+              <MyButton text={"Entrar"} onPress={signIn} />
+              <GoogleSigninButton
+                size={GoogleSigninButton.Size.Wide}
+                color={GoogleSigninButton.Color.Light}
+                onPress={googleSignIn}
+                disabled={loading}
+              />
+              ;
+            </>
+          )
+        ) : (
+          <Link href={"/(tabs)/(home)/trilhas"} asChild>
+            <MyButton text={"Entrar"} onPress={() => {}} />
+          </Link>
+        )}
+
         <View
           style={{
             gap: 8,

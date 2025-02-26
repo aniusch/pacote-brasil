@@ -64,8 +64,9 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   campo: {
-    width: "100%",
+    width: "90%",
     marginVertical: 12,
+    alignSelf: "center",
   },
 });
 

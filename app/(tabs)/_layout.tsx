@@ -25,19 +25,30 @@ const Layout = () => {
         tabBarIndicatorStyle: { backgroundColor: "#fff", height: 3 },
         tabBarLabelStyle: { fontSize: 16, fontWeight: "bold" },
         swipeEnabled: false,
+        tabBarPressColor: "transparent",
+        tabBarPressOpacity: 1,
       }}
     >
       <MaterialTopTabs.Screen
         name="(home)/trilhas"
         options={{ title: "Trilhas" }}
+        listeners={() => ({
+          tabPress: (e) => e.preventDefault(),
+        })}
       />
       <MaterialTopTabs.Screen
         name="(home)/pacotes"
         options={{ title: "Pacotes" }}
+        listeners={() => ({
+          tabPress: (e) => e.preventDefault(),
+        })}
       />
       <MaterialTopTabs.Screen
-        name="(home)/ajuda"
-        options={{ title: "Ajuda" }}
+        name="(home)/pagamento"
+        options={{ title: "Pagamento" }}
+        listeners={() => ({
+          tabPress: (e) => e.preventDefault(),
+        })}
       />
     </MaterialTopTabs>
   );

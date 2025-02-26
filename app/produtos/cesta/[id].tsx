@@ -1,13 +1,7 @@
 import { FIREBASE_DB } from "@/firebaseConfig";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import React, { useEffect } from "react";
-import {
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Dimensions,
-  View,
-} from "react-native";
+import { Text, StyleSheet, View, Image } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { TCestaCard } from "@/app/components/CestaCard";
 import { Link } from "expo-router";
@@ -27,7 +21,13 @@ const Cesta: React.FC = () => {
         <Text style={styles.mainTitle}>{cesta.name}</Text>
       </View>
       <View style={styles.container}>
-        <View style={styles.pictureContainer}></View>
+        <View style={styles.pictureContainer}>
+          <Image
+            source={{ uri: cesta.picture_url }}
+            style={{ width: "100%", height: "100%" }}
+            resizeMode="cover"
+          />
+        </View>
         <Text style={styles.title}>Conteúdo</Text>
         <View style={styles.listContainer}>
           {cesta.items?.map((item, index) => {

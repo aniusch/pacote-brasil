@@ -2,8 +2,6 @@ import React from "react";
 import { View, Image, StyleSheet, Text } from "react-native";
 import { Link } from "expo-router";
 import { GStyles } from "@/styles/global";
-import { goBack } from "expo-router/build/global-state/routing";
-
 export default function Ajuda() {
   return (
     <View style={{ flex: 1, backgroundColor: "#D7961D" }}>
