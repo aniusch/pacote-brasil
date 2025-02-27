@@ -18,7 +18,12 @@ export default function RootLayout() {
               <>
                 <Link href={"/detalhes/user"}>
                   <Text
-                    style={{ fontSize: 16, color: "#fff", fontWeight: 700 }}
+                    style={{
+                      fontSize: 16,
+                      color: "#fff",
+                      fontWeight: 700,
+                      padding: 4,
+                    }}
                   >
                     Menu
                   </Text>
@@ -64,6 +69,12 @@ export default function RootLayout() {
       />
       <Stack.Screen
         name="produtos"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="detalhes/finalizar"
         options={{
           headerShown: false,
         }}

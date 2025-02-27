@@ -3,8 +3,13 @@ import { View, Image, StyleSheet, Text } from "react-native";
 import { Link } from "expo-router";
 import { GStyles } from "@/styles/global";
 import MenuListItem from "../components/MenuListItem";
+import { signOut } from "firebase/auth";
+import { useRouter } from "expo-router";
+import { FIREBASE_AUTH } from "@/firebaseConfig";
+import { FirebaseError } from "firebase/app";
 
 export default function User() {
+  const router = useRouter();
   return (
     <View style={{ flex: 1, backgroundColor: "#D7961D" }}>
       <View style={styles.container}>
@@ -54,6 +59,14 @@ export default function User() {
             <MenuListItem
               text="Sair"
               leadingIconURI={require("@/images/sair.png")}
+              onPress={async () => {
+                try {
+                  await signOut(FIREBASE_AUTH);
+                  router.replace("/");
+                } catch (error) {
+                  alert("Erro ao sair: " + (error as FirebaseError).message);
+                }
+              }}
             />
           </View>
         </View>

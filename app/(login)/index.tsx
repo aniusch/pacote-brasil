@@ -6,58 +6,70 @@ import {
   SafeAreaView,
   ActivityIndicator,
 } from "react-native";
-import { Link, Redirect } from "expo-router";
+import { Link, Redirect, useRouter } from "expo-router";
 import MyButton from "@/components/MyButton";
 import MyCampo from "@/components/MyCampo";
 import TextLink from "@/components/TextLink";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FirebaseError } from "firebase/app";
 import {
-  getAuth,
   signInWithEmailAndPassword,
-} from "@react-native-firebase/auth";
+  onAuthStateChanged,
+  GoogleAuthProvider,
+  signInWithCredential,
+} from "firebase/auth";
 import {
   GoogleSignin,
   GoogleSigninButton,
-  isErrorWithCode,
-  isSuccessResponse,
   statusCodes,
-  User,
 } from "@react-native-google-signin/google-signin";
+import { FIREBASE_AUTH } from "@/firebaseConfig";
 
-GoogleSignin.configure();
-
-const trava: boolean = false;
+GoogleSignin.configure({
+  webClientId: process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID,
+});
 
 export default function Index() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [User, setUser] = useState<User>();
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(FIREBASE_AUTH, (currentUser) => {
+      setUser(currentUser);
+      if (currentUser) {
+        router.replace("/(tabs)/(home)/trilhas");
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const googleSignIn = async () => {
     try {
       await GoogleSignin.hasPlayServices();
       const response = await GoogleSignin.signIn();
-      if (isSuccessResponse(response)) {
-        setUser(response.data);
+
+      if (response && "idToken" in response) {
+        const { idToken } = response as any;
+
+        const googleCredential = GoogleAuthProvider.credential(idToken);
+        await signInWithCredential(FIREBASE_AUTH, googleCredential);
       } else {
-        // sign in was cancelled by user
+        alert("Erro ao autenticar com o Google.");
       }
     } catch (error) {
-      if (isErrorWithCode(error)) {
-        switch (error.code) {
-          case statusCodes.IN_PROGRESS:
-            // operation (eg. sign in) already in progress
-            break;
-          case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
-            // Android only, play services not available or outdated
-            break;
-          default:
-          // some other error happened
-        }
+      if ((error as FirebaseError).code === statusCodes.SIGN_IN_CANCELLED) {
+        alert("Login cancelado");
+      } else if (
+        (error as FirebaseError).code ===
+        statusCodes.PLAY_SERVICES_NOT_AVAILABLE
+      ) {
+        alert("Play Services não disponível");
       } else {
-        // an error that's not related to google sign in occurred
+        alert("Erro no login com Google: " + (error as FirebaseError).message);
       }
     }
   };
@@ -65,78 +77,66 @@ export default function Index() {
   const signIn = async () => {
     setLoading(true);
     try {
-      const auth = getAuth(); // Initialize the auth instance using the modular SDK
-      await signInWithEmailAndPassword(auth, email, password); // Use the modular API to sign in
-      alert("Login bem-sucedido " + auth.currentUser?.email);
-    } catch (e: any) {
-      const err = e as FirebaseError;
-      alert("Login falhou: " + err.message); // Provide the error message if login fails
+      await signInWithEmailAndPassword(FIREBASE_AUTH, email, password);
+      alert("Login com Sucesso: " + FIREBASE_AUTH.currentUser?.displayName);
+    } catch (error) {
+      const err = error as FirebaseError;
+      alert("Login error: " + err.message);
     } finally {
       setLoading(false);
     }
   };
 
+  if (user) {
+    return <Redirect href="/(tabs)/(home)/trilhas" />;
+  }
+
   return (
     <Pressable style={styles.container} onPress={Keyboard.dismiss}>
-      <SafeAreaView
-        style={{
-          flex: 1,
-          justifyContent: "space-evenly",
-          alignItems: "center",
-          width: "100%",
-        }}
-      >
+      <SafeAreaView style={styles.safeArea}>
         <View style={styles.formContainer}>
           <MyCampo
-            title={"Email"}
+            title="Email"
             value={email}
             onChangeText={setEmail}
-            placeholder={"Insira o email aqui"}
+            placeholder="Insira o seu email"
           />
           <MyCampo
-            title={"Senha"}
+            title="Senha"
             value={password}
             onChangeText={setPassword}
-            placeholder={"Insira a senha aqui"}
+            placeholder="Insira a sua senha"
             isPassword={true}
           />
         </View>
 
-        {trava ? (
-          loading ? (
-            <ActivityIndicator size={"small"} style={{ margin: 28 }} />
-          ) : (
-            <>
-              <MyButton text={"Entrar"} onPress={signIn} />
-              <GoogleSigninButton
-                size={GoogleSigninButton.Size.Wide}
-                color={GoogleSigninButton.Color.Light}
-                onPress={googleSignIn}
-                disabled={loading}
-              />
-              ;
-            </>
-          )
+        {loading ? (
+          <ActivityIndicator size="small" style={{ margin: 28 }} />
         ) : (
-          <Link href={"/(tabs)/(home)/trilhas"} asChild>
-            <MyButton text={"Entrar"} onPress={() => {}} />
-          </Link>
+          <>
+            <MyButton text="Login" onPress={signIn} />
+            <GoogleSigninButton
+              size={GoogleSigninButton.Size.Wide}
+              color={GoogleSigninButton.Color.Light}
+              onPress={googleSignIn}
+              disabled={loading}
+            />
+          </>
         )}
 
-        <View
-          style={{
-            gap: 8,
-          }}
-        >
+        <View style={{ gap: 8 }}>
           {loading ? (
-            <ActivityIndicator size={"small"} style={{ margin: 28 }} />
+            <ActivityIndicator size="small" style={{ margin: 28 }} />
           ) : (
             <>
-              <Link href={"/(login)/recuperar"} asChild>
-                <TextLink text={"Esqueci a senha"} onPress={() => {}} />
+              <Link href="/(login)/recuperar" asChild>
+                <TextLink text="Esqueceu a senha?" onPress={() => {}} />
               </Link>
               <Link href="/(login)/registrar" asChild>
-                <TextLink text={"Primeiro acesso"} onPress={() => {}} />
+                <TextLink
+                  text="Primeiro acesso? Registre aqui"
+                  onPress={() => {}}
+                />
               </Link>
             </>
           )}
@@ -153,12 +153,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 16,
     paddingVertical: 32,
-    gap: 4,
     backgroundColor: "#FFFFFF",
+  },
+  safeArea: {
+    flex: 1,
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    width: "100%",
   },
   formContainer: {
     width: "100%",
-    marginBottom: 0,
     gap: 4,
   },
 });

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, ScrollView, StyleSheet, Alert } from "react-native";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { GStyles } from "@/styles/global";
 import MyCampo from "@/app/components/MyCampo";
 import MyButton from "@/app/components/MyButton";
@@ -45,6 +45,7 @@ export default function Pagamento() {
     }
   };
 
+  const router = useRouter();
   return (
     <ScrollView
       style={{ flex: 1 }}
@@ -119,7 +120,12 @@ export default function Pagamento() {
       </View>
 
       <View style={[GStyles.linksContainer, styles.buttonsContainer]}>
-        <MyButton text="Continuar" onPress={() => {}} />
+        <MyButton
+          text="Continuar"
+          onPress={() => {
+            router.push("/detalhes/finalizar");
+          }}
+        />
         <Link href={".."}>
           <Text style={GStyles.links}>Voltar</Text>
         </Link>
@@ -143,7 +149,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   buttonsContainer: {
-    alignContent: "center",
+    alignItems: "center",
     alignSelf: "center",
     padding: 40,
   },
