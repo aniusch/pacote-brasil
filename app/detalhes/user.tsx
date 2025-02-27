@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Image, StyleSheet, Text } from "react-native";
 import { Link } from "expo-router";
 import { GStyles } from "@/styles/global";
@@ -7,9 +7,13 @@ import { signOut } from "firebase/auth";
 import { useRouter } from "expo-router";
 import { FIREBASE_AUTH } from "@/firebaseConfig";
 import { FirebaseError } from "firebase/app";
+import Warning from "../components/WarningPopUp";
+import Modal from "../components/Modal";
 
 export default function User() {
+  const [overlay, setOverlay] = useState<boolean>(false);
   const router = useRouter();
+
   return (
     <View style={{ flex: 1, backgroundColor: "#D7961D" }}>
       <View style={styles.container}>
@@ -59,13 +63,8 @@ export default function User() {
             <MenuListItem
               text="Sair"
               leadingIconURI={require("@/images/sair.png")}
-              onPress={async () => {
-                try {
-                  await signOut(FIREBASE_AUTH);
-                  router.replace("/");
-                } catch (error) {
-                  alert("Erro ao sair: " + (error as FirebaseError).message);
-                }
+              onPress={() => {
+                setOverlay(true);
               }}
             />
           </View>
@@ -76,6 +75,20 @@ export default function User() {
           </Link>
         </View>
       </View>
+      <Modal isOpen={overlay} hasInput={false}>
+        <Warning
+          message="Tem certeza que deseja sair?"
+          setOpen={setOverlay}
+          onPress={async () => {
+            try {
+              await signOut(FIREBASE_AUTH);
+              router.replace("/");
+            } catch (error) {
+              alert("Erro ao sair: " + (error as FirebaseError).message);
+            }
+          }}
+        />
+      </Modal>
     </View>
   );
 }

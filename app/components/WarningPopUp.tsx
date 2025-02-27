@@ -11,7 +11,7 @@ type TWarning = {
 export default function Warning({ message, onPress, setOpen }: TWarning) {
   return (
     <View style={styles.popupContainer}>
-      <Image source={require("@assets/images/error_24px.png")}></Image>
+      <Image source={require("@/images/error.png")}></Image>
       <Text style={styles.descricao}>{message}</Text>
       <View style={styles.buttonsContainer}>
         <Button
