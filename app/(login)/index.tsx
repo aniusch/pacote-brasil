@@ -15,19 +15,9 @@ import { FirebaseError } from "firebase/app";
 import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
-  GoogleAuthProvider,
   signInWithCredential,
 } from "firebase/auth";
-import {
-  GoogleSignin,
-  GoogleSigninButton,
-  statusCodes,
-} from "@react-native-google-signin/google-signin";
 import { FIREBASE_AUTH } from "@/firebaseConfig";
-
-GoogleSignin.configure({
-  webClientId: process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID,
-});
 
 export default function Index() {
   const router = useRouter();
@@ -46,33 +36,6 @@ export default function Index() {
 
     return () => unsubscribe();
   }, []);
-
-  const googleSignIn = async () => {
-    try {
-      await GoogleSignin.hasPlayServices();
-      const response = await GoogleSignin.signIn();
-
-      if (response && "idToken" in response) {
-        const { idToken } = response as any;
-
-        const googleCredential = GoogleAuthProvider.credential(idToken);
-        await signInWithCredential(FIREBASE_AUTH, googleCredential);
-      } else {
-        alert("Erro ao autenticar com o Google.");
-      }
-    } catch (error) {
-      if ((error as FirebaseError).code === statusCodes.SIGN_IN_CANCELLED) {
-        alert("Login cancelado");
-      } else if (
-        (error as FirebaseError).code ===
-        statusCodes.PLAY_SERVICES_NOT_AVAILABLE
-      ) {
-        alert("Play Services não disponível");
-      } else {
-        alert("Erro no login com Google: " + (error as FirebaseError).message);
-      }
-    }
-  };
 
   const signIn = async () => {
     setLoading(true);
@@ -115,15 +78,8 @@ export default function Index() {
         ) : (
           <>
             <MyButton text="Login" onPress={signIn} />
-            <GoogleSigninButton
-              size={GoogleSigninButton.Size.Wide}
-              color={GoogleSigninButton.Color.Light}
-              onPress={googleSignIn}
-              disabled={loading}
-            />
           </>
         )}
-
         <View style={{ gap: 8 }}>
           {loading ? (
             <ActivityIndicator size="small" style={{ margin: 28 }} />
