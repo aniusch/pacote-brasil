@@ -38,6 +38,7 @@ export default function User() {
             <MenuListItem
               text="Dicas - Notificações"
               leadingIconURI={require("@/images/notification.png")}
+              trailingIcon={false}
             />
           </View>
         </View>
@@ -66,6 +67,7 @@ export default function User() {
               onPress={() => {
                 setOverlay(true);
               }}
+              trailingIcon={false}
             />
           </View>
         </View>

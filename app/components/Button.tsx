@@ -18,7 +18,7 @@ const sizes = {
 
 const buttonStyles = StyleSheet.create({
   primary: {
-    backgroundColor: "#002244",
+    backgroundColor: "#0D3439",
   },
   danger: {
     backgroundColor: "#B22222",

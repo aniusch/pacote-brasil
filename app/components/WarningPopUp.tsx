@@ -22,7 +22,7 @@ export default function Warning({ message, onPress, setOpen }: TWarning) {
           }}
         ></Button>
         <Button
-          title="Prosseguir"
+          title="Sair"
           type="caution"
           size="small"
           onPress={onPress}
