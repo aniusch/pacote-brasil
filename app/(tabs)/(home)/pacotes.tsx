@@ -1,11 +1,11 @@
-import { View, Text, ScrollView, TouchableOpacity } from "react-native";
-import { GStyles } from "@/styles/global";
-import { useScrollToTop } from "@react-navigation/native";
-import React, { useRef } from "react";
-import ItemsList from "@/components/ItemsList";
-import CestaCard from "@/app/components/CestaCard";
-import { Link, useLocalSearchParams, useRouter } from "expo-router";
-import MyButton from "@/app/components/MyButton";
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { GStyles } from '@/styles/global';
+import { useScrollToTop } from '@react-navigation/native';
+import React, { useRef } from 'react';
+import ItemsList from '@/components/ItemsList';
+import CestaCard from '@/app/components/CestaCard';
+import { Link, useLocalSearchParams, useRouter } from 'expo-router';
+import MyButton from '@/app/components/MyButton';
 
 // Properly type the ref as ScrollView | null
 export default function Pacotes() {
@@ -21,7 +21,7 @@ export default function Pacotes() {
       <View
         style={[
           GStyles.container,
-          { flex: 1, justifyContent: "space-between", padding: 0 },
+          { flex: 1, justifyContent: 'space-between', padding: 0 },
         ]}
       >
         <Text style={GStyles.pageTitle}>
@@ -29,16 +29,16 @@ export default function Pacotes() {
         </Text>
         <View style={GStyles.contentContainer}>
           <ItemsList
-            colletionName="Cesta"
+            colletionName='Cesta'
             itemsNum={Number(nums)}
             renderItem={(item) => <CestaCard key={item.id} Cesta={item} />}
           />
         </View>
-        <View style={GStyles.linksContainer}>
+        <View style={[GStyles.linksContainer, { alignItems: 'center' }]}>
           <MyButton
-            text="Fechar Pedido"
+            text='Fechar Pedido'
             onPress={() => {
-              router.push("/(tabs)/(home)/pagamento");
+              router.push('/(tabs)/(home)/pagamento');
             }}
           />
           <TouchableOpacity
@@ -48,7 +48,7 @@ export default function Pacotes() {
           >
             <Text style={GStyles.links}>Voltar ao Topo</Text>
           </TouchableOpacity>
-          <Link href={".."}>
+          <Link href={'..'}>
             <Text style={GStyles.links}>Voltar</Text>
           </Link>
         </View>

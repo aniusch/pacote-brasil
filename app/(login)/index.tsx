@@ -5,24 +5,20 @@ import {
   Keyboard,
   SafeAreaView,
   ActivityIndicator,
-} from "react-native";
-import { Link, Redirect, useRouter } from "expo-router";
-import MyButton from "@/components/MyButton";
-import MyCampo from "@/components/MyCampo";
-import TextLink from "@/components/TextLink";
-import React, { useEffect, useState } from "react";
-import { FirebaseError } from "firebase/app";
-import {
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-  signInWithCredential,
-} from "firebase/auth";
-import { FIREBASE_AUTH } from "@/firebaseConfig";
+} from 'react-native';
+import { Link, Redirect, useRouter } from 'expo-router';
+import MyButton from '@/components/MyButton';
+import MyCampo from '@/components/MyCampo';
+import TextLink from '@/components/TextLink';
+import React, { useEffect, useState } from 'react';
+import { FirebaseError } from 'firebase/app';
+import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
+import { FIREBASE_AUTH } from '@/firebaseConfig';
 
 export default function Index() {
   const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState<any>(null);
 
@@ -30,7 +26,7 @@ export default function Index() {
     const unsubscribe = onAuthStateChanged(FIREBASE_AUTH, (currentUser) => {
       setUser(currentUser);
       if (currentUser) {
-        router.replace("/(tabs)/(home)/trilhas");
+        router.replace('/(tabs)/(home)/trilhas');
       }
     });
 
@@ -41,17 +37,17 @@ export default function Index() {
     setLoading(true);
     try {
       await signInWithEmailAndPassword(FIREBASE_AUTH, email, password);
-      alert("Login com Sucesso: " + FIREBASE_AUTH.currentUser?.displayName);
+      alert('Login com Sucesso: ' + FIREBASE_AUTH.currentUser?.displayName);
     } catch (error) {
       const err = error as FirebaseError;
-      alert("Login error: " + err.message);
+      alert('Login error: ' + err.message);
     } finally {
       setLoading(false);
     }
   };
 
   if (user) {
-    return <Redirect href="/(tabs)/(home)/trilhas" />;
+    return <Redirect href='/(tabs)/(home)/trilhas' />;
   }
 
   return (
@@ -59,38 +55,38 @@ export default function Index() {
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.formContainer}>
           <MyCampo
-            title="Email"
+            title='Email'
             value={email}
             onChangeText={setEmail}
-            placeholder="Insira o seu email"
+            placeholder='Insira o seu email'
           />
           <MyCampo
-            title="Senha"
+            title='Senha'
             value={password}
             onChangeText={setPassword}
-            placeholder="Insira a sua senha"
+            placeholder='Insira a sua senha'
             isPassword={true}
           />
         </View>
 
         {loading ? (
-          <ActivityIndicator size="small" style={{ margin: 28 }} />
+          <ActivityIndicator size='small' style={{ margin: 28 }} />
         ) : (
           <>
-            <MyButton text="Login" onPress={signIn} />
+            <MyButton text='Login' onPress={signIn} />
           </>
         )}
         <View style={{ gap: 8 }}>
           {loading ? (
-            <ActivityIndicator size="small" style={{ margin: 28 }} />
+            <ActivityIndicator size='small' style={{ margin: 28 }} />
           ) : (
             <>
-              <Link href="/(login)/recuperar" asChild>
-                <TextLink text="Esqueceu a senha?" onPress={() => {}} />
+              <Link href='/(login)/recuperar' asChild>
+                <TextLink text='Esqueceu a senha?' onPress={() => {}} />
               </Link>
-              <Link href="/(login)/registrar" asChild>
+              <Link href='/(login)/registrar' asChild>
                 <TextLink
-                  text="Primeiro acesso? Registre aqui"
+                  text='Primeiro acesso? Registre aqui'
                   onPress={() => {}}
                 />
               </Link>
@@ -105,20 +101,20 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "space-evenly",
-    alignItems: "center",
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
     paddingHorizontal: 16,
     paddingVertical: 32,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: '#FFFFFF',
   },
   safeArea: {
     flex: 1,
-    justifyContent: "space-evenly",
-    alignItems: "center",
-    width: "100%",
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    width: '100%',
   },
   formContainer: {
-    width: "100%",
+    width: '100%',
     gap: 4,
   },
 });
