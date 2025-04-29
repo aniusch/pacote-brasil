@@ -1,15 +1,15 @@
-import React from "react";
-import { View, Image, StyleSheet, Text } from "react-native";
-import { Link, useRouter } from "expo-router";
-import { GStyles } from "@/styles/global";
-import MyButton from "../components/MyButton";
+import React from 'react';
+import { View, Image, StyleSheet, Text } from 'react-native';
+import { Link, useRouter } from 'expo-router';
+import { GStyles } from '@/styles/global';
+import MyButton from '../components/MyButton';
 export default function Ajuda() {
   const router = useRouter();
 
   return (
-    <View style={{ flex: 1, backgroundColor: "#D7961D" }}>
+    <View style={{ flex: 1, backgroundColor: '#D7961D' }}>
       <View style={styles.container}>
-        <Image source={require("@/images/icon.png")} style={styles.logo} />
+        <Image source={require('@/images/icon.png')} style={styles.logo} />
       </View>
       <View style={styles.contentContainer}>
         <Text style={GStyles.sectionTitle}>Pedido Finalizado!</Text>
@@ -20,11 +20,17 @@ export default function Ajuda() {
           </Text>
           <Text style={styles.text}>Acompanhe a sua compra pelo e-mail!</Text>
         </View>
-        <View style={[GStyles.linksContainer, { alignItems: "center" }]}>
+        <View style={[GStyles.linksContainer, { alignItems: 'center' }]}>
           <MyButton
-            text="Finalizar"
+            text='Finalizar'
             onPress={() => {
-              router.push("/(tabs)/(home)/trilhas");
+              router.push('/(tabs)/(home)/trilhas');
+            }}
+          />
+          <MyButton
+            text='Menu'
+            onPress={() => {
+              router.push('/detalhes/user');
             }}
           />
         </View>
@@ -35,7 +41,7 @@ export default function Ajuda() {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center", // Centraliza a logo e o conteúdo
+    alignItems: 'center', // Centraliza a logo e o conteúdo
     paddingTop: 40, // Espaçamento superior para dar distância da barra de status
   },
   logo: {
@@ -45,24 +51,24 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    width: "100%",
+    width: '100%',
     padding: 16,
-    backgroundColor: "#fff", // Cor de fundo do conteúdo
+    backgroundColor: '#fff', // Cor de fundo do conteúdo
     borderTopLeftRadius: 80, // Bordas arredondadas no topo esquerdo para formar a circunferência
     borderTopRightRadius: 90, // Bordas arredondadas no topo direito para formar a circunferência
-    overflow: "hidden", // Garante que os filhos não ultrapassem as bordas arredondadas
+    overflow: 'hidden', // Garante que os filhos não ultrapassem as bordas arredondadas
     marginTop: -40, // Movimenta o conteúdo para que ele fique logo abaixo da parte superior circular
     paddingBottom: 48,
   },
   textContainer: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
     gap: 48,
   },
   text: {
     fontWeight: 700,
     fontSize: 20,
-    textAlign: "center",
-    color: "#D7961D",
+    textAlign: 'center',
+    color: '#D7961D',
   },
 });

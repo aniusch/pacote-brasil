@@ -1,11 +1,11 @@
-import { FIREBASE_DB } from "@/firebaseConfig";
-import { collection, query, where, getDocs } from "firebase/firestore";
-import React, { useEffect } from "react";
-import { Text, StyleSheet, View, Image } from "react-native";
-import { useLocalSearchParams } from "expo-router";
-import { TCestaCard } from "@/app/components/CestaCard";
-import { Link } from "expo-router";
-import { GStyles } from "@/styles/global";
+import { FIREBASE_DB } from '@/firebaseConfig';
+import { collection, query, where, getDocs } from 'firebase/firestore';
+import React, { useEffect } from 'react';
+import { Text, StyleSheet, View, Image, ScrollView } from 'react-native';
+import { useLocalSearchParams } from 'expo-router';
+import { TCestaCard } from '@/app/components/CestaCard';
+import { Link } from 'expo-router';
+import { GStyles } from '@/styles/global';
 
 const Cesta: React.FC = () => {
   const { cestaData } = useLocalSearchParams(); //get cesta id from link params
@@ -14,34 +14,47 @@ const Cesta: React.FC = () => {
   return (
     <View
       style={
-        (GStyles.container, { flex: 1, justifyContent: "center", padding: 0 })
+        (GStyles.container, { flex: 1, justifyContent: 'center', padding: 0 })
       }
     >
-      <View style={{ minHeight: 100, justifyContent: "center" }}>
+      <View style={{ minHeight: 100, justifyContent: 'center' }}>
         <Text style={styles.mainTitle}>{cesta.name}</Text>
       </View>
       <View style={styles.container}>
         <View style={styles.pictureContainer}>
           <Image
             source={{ uri: cesta.picture_url }}
-            style={{ width: "100%", height: "100%" }}
-            resizeMode="cover"
+            style={{ width: '100%', height: '100%' }}
+            resizeMode='cover'
           />
         </View>
         <Text style={styles.title}>Conteúdo</Text>
-        <View style={styles.listContainer}>
-          {cesta.items?.map((item, index) => {
-            return (
-              <Text style={styles.listItem} key={index}>
-                - {item.description}
-              </Text>
-            );
-          })}
-        </View>
-        <Text style={styles.title}>Receita Indicada: {cesta.recipe}</Text>
+        <ScrollView
+          style={styles.listContainer}
+          contentContainerStyle={{ paddingBottom: 20 }}
+          showsVerticalScrollIndicator
+        >
+          <View style={styles.listContainer}>
+            {cesta.items?.map((item, index) => {
+              return (
+                <Text style={styles.listItem} key={index}>
+                  - {item.description}
+                </Text>
+              );
+            })}
+          </View>
+        </ScrollView>
+        <Text style={[styles.title, { paddingBottom: 20 }]}>
+          Receita Indicada: {cesta.recipe}
+        </Text>
       </View>
-      <View style={GStyles.linksContainer}>
-        <Link href={".."}>
+      <View
+        style={[
+          GStyles.linksContainer,
+          { alignItems: 'center', paddingBottom: 60, marginTop: 20 },
+        ]}
+      >
+        <Link href={'..'}>
           <Text style={GStyles.links}>Voltar</Text>
         </Link>
       </View>
@@ -54,7 +67,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginBottom: 80,
     marginHorizontal: 24,
-    shadowColor: "rgba(0, 0, 0, 0.25)",
+    shadowColor: 'rgba(0, 0, 0, 0.25)',
     shadowOffset: {
       width: 0,
       height: 4,
@@ -63,12 +76,12 @@ const styles = StyleSheet.create({
     elevation: 10,
     shadowOpacity: 1,
     borderRadius: 25,
-    backgroundColor: "#fff",
-    overflow: "hidden",
+    backgroundColor: '#fff',
+    overflow: 'hidden',
   },
   pictureContainer: {
-    backgroundColor: "#d7961c",
-    width: "100%",
+    backgroundColor: '#d7961c',
+    width: '100%',
     height: 200,
   },
   listContainer: {},
@@ -82,8 +95,8 @@ const styles = StyleSheet.create({
   },
   mainTitle: {
     fontSize: 24,
-    color: "#2e9000",
-    textAlign: "center",
+    color: '#2e9000',
+    textAlign: 'center',
   },
 });
 
